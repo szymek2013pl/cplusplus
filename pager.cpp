@@ -1,8 +1,15 @@
 #include <iostream>
+#include <string>
 
 int main () {
 
-    std::cout << "Hello. nice to meet you. I'm Pager." << std::endl;
+    std::string phrase;
+
+    while (std::getline(std::cin, phrase)) {
+
+        std::cout << phrase << std::endl;
+
+    }
 
     return 0;
 
