@@ -2,35 +2,60 @@
 #include <string>
 #include <vector>
 
-int main () {
+struct bounded_buffer {
 
-    std::string phrase;
-    std::vector <std::string> vec;
-    int p = 0;
-    int q;
+    std::vector <std::string> buffer;
+    int capacity;
 
-    while (std::getline(std::cin, phrase)) {
+};
 
-        vec.push_back(phrase);
-        p ++;
+int buffer_size(const bounded_buffer * buffer) {
 
-        if (p == 4) {
+    return buffer -> buffer.size();
 
-            for (q = 0; q < 4; q++) {
+}
 
-                std::cout << vec[q] << std::endl;
+int buffer_capacity(const bounded_buffer * buffer) {
 
-            }
+    return buffer -> capacity;
 
-            std::cout << "====" << std::endl;
+}
 
-            vec.clear();
-            p = 0;
+void flush_buffer(bounded_buffer * buffer) {
 
-        }
+    for (int i = 0; i < buffer -> buffer.size(); i++) {
+
+        std::cout << buffer->buffer[i] << std::endl;
 
     }
 
-    return 0;
+}
+
+void add_to_buffer(bounded_buffer * buffer, std::string line) {
+
+    if (buffer->buffer.size() >= buffer->capacity) {
+
+        return;
+
+    }
+
+    buffer->buffer.push_back(line);
+
+}
+
+int main () {
+
+    std::vector<std::string> vec;
+
+    bounded_buffer b;
+    b.capacity = 4;
+    b.buffer = vec;
+
+    add_to_buffer(&b, "pies");
+    add_to_buffer(&b, "kot");
+    flush_buffer(&b);
+
+    std::cout << buffer_size(&b) << std::endl;
+    std::cout << buffer_capacity(&b) << std::endl;
 
 }
